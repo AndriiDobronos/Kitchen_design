@@ -11,6 +11,17 @@
 # production
 /build
 
+/src/components/Grid.js
+/src/components/Placement.jsx
+/src/components/placement.scss
+/src/components/TextEditor.jsx
+/src/components/TextHighlighter.jsx
+/src/components/TextHighlighter.style.scss
+/src/components/TextManipulation.jsx
+/src/components/TextManipulation.style.scss
+/src/components/Trapezoid.jsx
+/src/components/WindowDemension.jsx 
+
 # misc
 .DS_Store
 .env.local

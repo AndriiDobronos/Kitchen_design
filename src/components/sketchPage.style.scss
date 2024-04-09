@@ -1,0 +1,344 @@
+.header {
+  height: 100vh;
+  width: 100vw;
+  //background-image: url('../static/image/interior2.png');
+  //background-image: url('../static/image/pattern4.png');
+  background-size: 100% 100%;
+  box-sizing: border-box;
+  @media (max-width: 1140px) {
+
+  }
+  .topContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height:calc(50vh - 15vw);
+    background-image:linear-gradient(rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5));
+    clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%);
+    align-items: center;
+    @media (max-width: 768px) {
+
+    }
+    .topString {
+      position: relative;
+      width: 80%;
+      display: flex;
+      flex-direction: row;
+      justify-content:space-evenly;
+      align-items:center;
+      @media (max-width: 940px) {
+        margin-top: 5vh;
+      }
+      .title {
+        color: #442929;
+        font-size: 30px;
+        @media (max-width: 940px) {
+          font-size:20px;
+        }
+      }
+      .buttonDownload {
+        display: block;
+        background: grey;
+        border-radius: 5px;
+        padding: 6px 20px;
+        @media (max-width: 768px) {
+          display:none;
+        }
+      }
+      .buttonDownload:hover {
+        cursor: pointer;
+        box-shadow: 3px 3px 3px #3a302b;
+      }
+    }
+    .horizontalButtons {
+      display: none;
+      @media (max-width: 940px) {
+        display: flex;
+        left:0;
+        margin: 20px auto;
+        max-width: 60vw;
+        position: relative;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .button_selectElement {
+        border-radius: 5px;
+        background: #c4a794;
+        padding: 5px;
+        @media (max-width: 940px) {
+          margin-bottom: 6px;
+          margin-right: 6px;
+          font-size: 10px;
+        }
+      }
+      .button_selectElement:hover {
+        cursor: pointer;
+        box-shadow: 3px 3px 3px #3a302b;
+      }
+      .style {
+        @media (max-width: 940px) {
+          display: none;
+        }
+      }
+    }
+
+  }
+  .container {
+    position: relative;
+    height:60%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    @media (max-width: 940px) {
+
+    }
+    .leftWall {
+      position: relative;
+      bottom:calc(50vh - 15vw);
+      height: 100vh;
+      width: 20%;
+      box-sizing: border-box;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(0, 0, 0, 0.7));
+      clip-path: polygon(0% 0%, 100% calc(50vh - 15vw), 100% calc(50vh + 15vw), 0% 100%);
+      display: flex;
+      flex-direction: column;
+      //width: 33.6vw;
+      align-items: center;
+      justify-content: center;
+      .verticalButtons {
+        display: flex;
+        left:0;
+        //margin: 20px auto;
+        //max-width: 60vw;
+        position: relative;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        @media (max-width: 940px) {
+          display: none;
+        }
+        .button_selectElement {
+          border-radius: 5px;
+          background: #c4a794;
+          padding: 5px;
+          margin-bottom: 10px;
+          //margin:0 auto 30px 20%;
+          @media (max-width: 940px) {
+            margin-bottom: 6px;
+            margin-right: 6px;
+            font-size: 10px;
+          }
+        }
+        .button_selectElement:hover {
+          cursor: pointer;
+          box-shadow: 3px 3px 3px #3a302b;
+        }
+        .style {
+          @media (max-width: 940px) {
+            display: none;
+          }
+        }
+      }
+
+    }
+
+    .kitchenContainer {
+      position: relative;
+      width:60%;
+      height:30vw;
+      box-sizing: border-box;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+      display: flex;
+      flex-direction: column;
+      //width: 55.9vw;
+      //height: 74vh;
+      @media (max-width: 940px) {
+       //height: 54vh;
+        //width: 80vw;
+        max-height:100%;
+      }
+      .topBoxes {
+        display: flex;
+        flex-direction: row;
+        border-bottom: solid 2px black;
+        .top_boxes_facade {
+          width: 16.67%;
+          height:12vw;
+          //height: 29.7vh;
+          border: solid 1px black;
+          background-size: cover;
+          @media (max-width: 940px) {
+            //height: 22vh;
+          }
+          .horizontalLine {
+            //height: 15vh;
+            height: 6vw;
+            width: 100%;
+            border-bottom: solid 2px black;
+            @media (max-width: 940px) {
+
+            }
+          }
+        }
+      }
+      .bottomTopFacade {
+        padding-left: 6px;
+        height: 0.4vw;
+        border-bottom: solid 1px black;
+        background-size: cover;
+        clip-path: polygon(0% 0%, 100% 0%, 99.2% 100%, 0.8% 100%);
+      }
+      .container_wallPanel {
+        padding-left: 6px;
+        padding-right: 6px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: row;
+        .left_wallPanel {
+          width: 6px;
+          height: 6vw;
+          //background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+        }
+
+        .wallPanel {
+          //height: 16vh;
+          height: 6vw;
+          width: 100%;
+          border: solid 1px black;
+          //box-shadow: #232323 -1px 0px 20px 5px;
+          @media (max-width: 940px) {
+            //height: 12vh;
+          }
+          .backLight {
+            margin:0 5px 0 5px;
+            height: 1vh;
+            border-radius: 0.5vh;
+            background: #e4e89d;
+            box-shadow: #ff3c00 3px 6px 15px;
+          }
+        }
+      }
+      .bottom {
+        justify-content: center;
+        .counterTop {
+          height: 1.5vw;
+          //height: 3vh;
+          border-top: solid 1px black;
+          border-bottom:solid 1px black;
+          clip-path: polygon(0.8% 0%, 99.2% 0%, 100% 100%, 0% 100%);
+          background-size: cover;
+          .counterTop_face {
+            //height: 0.66vh;
+            height: 0.22vw;
+            margin-top: 1.26vw;
+            border-top: solid 2px black;
+            border-right:solid 3px black;
+            border-left:solid 3px black;
+          }
+        }
+        .bottom_boxes {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          .bottom_boxes_facade {
+            width: 16.67vw;
+            height: 8.2vw;
+            //height: 20vh;
+            border: solid 1px black;
+            background-size: cover;
+            @media (max-width: 940px) {
+              //height: 17vh;
+            }
+            .column {
+              display: flex;
+              flex-direction: column;
+              .row-2 {
+                width: 100%;
+                height: 1.64vw;
+                border-bottom: solid 2px black;
+              }
+              .row-4 {
+                width: 100%;
+                height: 3.28vw;
+                border-bottom: solid 2px black;
+              }
+              .row-5 {
+                width: 100%;
+                height: 4.1vw;
+                border-bottom: solid 2px black;
+              }
+            }
+          }
+        }
+        .plinth{
+          height: 1.3vw;
+          border-left: solid 1px black;
+          border-right: solid 1px black;
+          clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+      }
+    }
+  }
+  .rightWall {
+    position: relative;
+    bottom: calc(50vh - 15vw);
+    height: 100vh;
+    width: 20%;
+    box-sizing: border-box;
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.7), rgba(0, 0, 0, 0.7));
+    clip-path: polygon(0% calc(50vh - 15vw), 100% 0%, 100% 100%, 0% calc(50vh + 15vw));
+    .window {
+      position: absolute;
+      width: 30%;
+      height: 40%;
+      top:24%;
+      left: 10%;
+      border:1px solid #7f7f7f;
+      background-image: linear-gradient(to right,rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5)),linear-gradient(to right,rgba(155, 155, 155,1), rgba(155, 155, 155,1));
+      clip-path: polygon(0% calc((50vh - 15vw)/3.5), 100% 0%, 100% 100%, 0% calc((50vh + 15vw)/2.12));
+    }
+  }
+  .buttons_selectDecor {
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    height:calc(50vh - 15vw);
+    background-image:linear-gradient(rgba(0, 0, 0, 0.5),rgba(255, 255, 255, 0.5)),url('../static/image/decor17.png');
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    display: flex;
+    justify-content: center;
+    @media (max-width: 940px) {
+
+    }
+    .buttonsPanel {
+      position: absolute;
+      display: flex;
+      flex-wrap: wrap;
+      //justify-content: center;
+      margin: calc((50vh - 15vw - 68px)/2) 200px auto 200px;
+      @media (max-width: 768px) {
+        justify-content: center;
+        //align-items: center;
+        //margin: 20px 112px auto 112px;
+        margin: 5% 18% auto 18%;
+      }
+      .button_selectColor {
+        margin: 5px;
+        padding: 3px;
+        border-radius: 5px;
+        background: #c4a794;
+      }
+      .button_selectColor:hover {
+        cursor: pointer;
+        box-shadow: 3px 3px 3px #3a302b;
+      }
+    }
+  }
+}
+//    background-image: url('https://moweb.azureedge.net/careers/heat-map-task/empty-map.jpg');
+// background-image: url('https://moweb.azureedge.net/careers/heat-map-task/heat-map.jpg');
+// url = "http://e4ftl01.cr.usgs.gov/ASTT/AST_L1T.003/2016.08.22/AST_L1T_00308222016003413_20160823093712_24613.hdf.xml";
+//  string urs = "https://urs.earthdata.nasa.gov";

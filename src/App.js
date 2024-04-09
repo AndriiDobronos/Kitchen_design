@@ -1,22 +1,22 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+import SketchPage from "./components/SketchPage";
+import Trapezoid from "./components/Trapezoid";
+import Placement from "./components/Placement";
+import TextManipulation from "./components/TextManipulation";
+import TextHighlighter from "./components/TextHighlighter";
+import TextEditor from "./components/TextEditor";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div id='App' className="App">
+      <header id='header' className="App-header">
+        <SketchPage  />
+        {/*  <TextEditor/>*/}
+        {/*  <TextManipulation />*/}
+        {/*  <TextHighlighter  />*/}
+        {/*  <Placement />*/}
+        {/*  <Trapezoid  />*/}
       </header>
     </div>
   );
