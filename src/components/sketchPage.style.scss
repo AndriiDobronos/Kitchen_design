@@ -8,9 +8,15 @@
   background-repeat: repeat-x;
   box-sizing: border-box;
 
+  // Landscape mobile: lock height to dynamic viewport so the page never
+  // scrolls and the fixed decor panel doesn't jump with the browser toolbar.
+  @media (orientation: landscape) and (max-width: 790px) {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
   // Portrait mobile: clean beige, flex column.
-  // topContainer stays at top, container (kitchen) fills middle with flex:1,
-  // navPanel sits just above the decor panel at the bottom.
   @media (orientation: portrait) and (max-width: 790px) {
     background-image: linear-gradient(rgba(180, 120, 80, 0.5), rgba(156, 111, 72, 0.5)), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/652/confectionary.png');
     background-repeat: no-repeat;

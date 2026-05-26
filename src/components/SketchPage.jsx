@@ -71,16 +71,38 @@ const SketchPage = () => {
             });
     }
 
+    // Full set including light toggle — used only in the desktop left panel.
     const navButtons = verticalButtons.map(item => (
         <button
             key={item.id}
             type='button'
-            className={`button_selectElement ${item.className || ''} ${state.selectChanges === item.value ? 'active' : ''}`}
-            onClick={() => handleFieldChange('selectChanges', item.value)}
+            className={`button_selectElement ${item.className || ''} ${
+                item.value === 'light'
+                    ? (state.turnOn ? 'active' : '')
+                    : (state.selectChanges === item.value ? 'active' : '')
+            }`}
+            onClick={() => item.value === 'light'
+                ? handleFieldChange('turnOn', !state.turnOn)
+                : handleFieldChange('selectChanges', item.value)
+            }
         >
             {item.name}
         </button>
     ));
+
+    // Mobile nav — light button excluded (no left panel on mobile).
+    const navButtonsMobile = verticalButtons
+        .filter(item => item.value !== 'light')
+        .map(item => (
+            <button
+                key={item.id}
+                type='button'
+                className={`button_selectElement ${item.className || ''} ${state.selectChanges === item.value ? 'active' : ''}`}
+                onClick={() => handleFieldChange('selectChanges', item.value)}
+            >
+                {item.name}
+            </button>
+        ));
 
     return (
         <div className={"mainPage"}
@@ -105,7 +127,7 @@ const SketchPage = () => {
                 </div>
 
                 <div className={"horizontalButtons"}>
-                    {navButtons}
+                    {navButtonsMobile}
                 </div>
             </div>
 
@@ -183,7 +205,7 @@ const SketchPage = () => {
 
             {/* Portrait mobile: nav buttons sit between kitchen and decor panel */}
             <div className={"navPanel"}>
-                {navButtons}
+                {navButtonsMobile}
             </div>
 
             <div className={"buttons_selectDecor"} style={{bottom:`${bottomButtonsPanel}`}}>
@@ -236,12 +258,6 @@ const SketchPage = () => {
                                 onClick={()=>{handleFieldChange('selectColorTopFacade',`${item.color}`)}}
                         />
                     ))}
-                </div>}
-                {(state.selectChanges === "light") && <div className={"buttonsPanel"} >
-                    <button type='button' className="button_selectColor"
-                        onClick={()=>{handleFieldChange('turnOn',!state.turnOn)}}
-                    >Turn on/off the backlight
-                    </button>
                 </div>}
             </div>
         </div>
