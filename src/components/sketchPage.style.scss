@@ -18,9 +18,11 @@
 
   // Portrait mobile: clean beige, flex column.
   @media (orientation: portrait) and (max-width: 790px) {
-    background-image: linear-gradient(rgba(180, 120, 80, 0.5), rgba(156, 111, 72, 0.5)), url('../static/image/kitchen-tile.svg');
+    //background-image: linear-gradient(rgba(180, 120, 80, 0.5), rgba(170, 130, 100, 0.5)), url('../static/image/kitchen-tile.svg');
+    background-image: linear-gradient(rgba(150, 100, 50, 0.18), rgba(150, 100, 50, 0.18)), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/652/confectionary.png');
     background-repeat: no-repeat, repeat;
     background-size: cover, 60px 60px;
+    background-position: center, center;
     background-attachment: fixed;
     background-color:rgba(240, 160, 80, 0.3); //#f5ebe0;
     display: flex;
