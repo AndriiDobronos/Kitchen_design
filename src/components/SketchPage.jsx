@@ -9,19 +9,35 @@ import useWindowDimensions from "./WindowDemension";
 const SketchPage = () => {
 
     const { height, width } = useWindowDimensions();
-    let buttonDecorSizePadding = (width > 940) ? '12px' : '10px'
+    // On mobile (≤790px) padding is 0 — CSS controls the 44×44px touch target size.
+    const buttonDecorSizePadding = width > 1140 ? '14.8px' : width > 790 ? '10px' : '0';
+    const bottomButtonsPanel = (width > height * 2.4) ? '-52px' : '0';
+    const patternPadding = width > 940 ? '25px' : width > 790 ? '11px' : '0';
+    const patternBackgroundSize = width > 940 ? '1500%' : '2000%';
+    const wallPatternBackgroundSize = width > 940 ? '120%' : '100%';
     const [state, setState] = useState(initialState);
-    //const [selectedField,setSelectedField] = useState('');
-    //const [selectedValue, setSelectedValue] = useState('');
 
     const handleFieldChange = (fieldName, value) => {
         setState(prevState => ({
             ...prevState,
             [fieldName]: value
         }));
-        //setSelectedField(fieldName);
-        //setSelectedValue(value);
     };
+
+    // Returns the currently applied color/pattern for the active panel,
+    // used to highlight the selected decor button.
+    const getActiveDecorValue = () => {
+        switch (state.selectChanges) {
+            case 'facade':    return state.selectColorFacade;
+            case 'wallPanel': return state.selectColorWallPanel;
+            case 'topFacade': return state.selectColorTopFacade;
+            case 'counterTop':return state.selectColorCounterTop;
+            case 'pattern':   return state.selectPatternWallPanel;
+            default:          return null;
+        }
+    };
+
+    const activeDecorValue = getActiveDecorValue();
 
     const contents = [
         {id:'1',isShown:state.isShown1,setShown:()=> {handleFieldChange('isShown1',!state.isShown1)},
@@ -45,7 +61,7 @@ const SketchPage = () => {
     ];
 
     const downloadImage = () => {
-        const kitchenDesign = document.querySelector('.header');
+        const kitchenDesign = document.querySelector('.mainPage');
         toPng(kitchenDesign)
             .then((dataUrl) => {
                 download(dataUrl, "my-kitchen-design.png");
@@ -55,49 +71,48 @@ const SketchPage = () => {
             });
     }
 
+    const navButtons = verticalButtons.map(item => (
+        <button
+            key={item.id}
+            type='button'
+            className={`button_selectElement ${item.className || ''} ${state.selectChanges === item.value ? 'active' : ''}`}
+            onClick={() => handleFieldChange('selectChanges', item.value)}
+        >
+            {item.name}
+        </button>
+    ));
+
     return (
-        <div className={"header"}
+        <div className={"mainPage"}
              style={state.turnOn ? {backgroundImage:`rgba(2,2,2,0.3)`} : {backgroundImage:`rgba(2,2,2,0.01)`}}
         >
             <div className={"topContainer"}>
                 <div className={"topString"} >
-                    <h1 className={"title"}>Kitchen design:</h1>
+                    <h1 style={{}} 
+                    className={"title"}>Kitchen design:</h1>
                     <button className={"buttonDownload"}
                             type='button'
+                            aria-label="Download"
                             onClick={downloadImage}
                     >
-                        Download
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
                     </button>
                     <Share/>
                 </div>
 
                 <div className={"horizontalButtons"}>
-                    {verticalButtons.map(item => {
-                        return (<button
-                            key={item.id}
-                            type='button'
-                            className={`button_selectElement ${item.className}`}
-                            onClick={()=>handleFieldChange('selectChanges',`${item.value}`)}
-                        >
-                            {item.name}
-                        </button>)
-                    })}
+                    {navButtons}
                 </div>
-
             </div>
+
             <div className={"container"}>
                 <div className={"leftWall"} >
                     <div className={"verticalButtons"}>
-                        {verticalButtons.map(item => {
-                            return (<button
-                                key={item.id}
-                                type='button'
-                                className={`button_selectElement ${item.className}`}
-                                onClick={()=>handleFieldChange('selectChanges',`${item.value}`)}
-                            >
-                                {item.name}
-                            </button>)
-                        })}
+                        {navButtons}
                     </div>
                 </div>
 
@@ -123,7 +138,8 @@ const SketchPage = () => {
                         <div className={"wallPanel"}
                              style={{backgroundImage:`
                              url(${state.selectPatternWallPanel}),
-                             url(${state.selectColorWallPanel})`
+                             url(${state.selectColorWallPanel})`,
+                             backgroundSize:`${wallPatternBackgroundSize}`
                         }}>
                             {state.turnOn && <div className={"backLight"}></div>}
                         </div>
@@ -164,56 +180,62 @@ const SketchPage = () => {
                     <div className={'window'} ></div>
                 </div>
             </div>
-            <div className={"buttons_selectDecor"}>
+
+            {/* Portrait mobile: nav buttons sit between kitchen and decor panel */}
+            <div className={"navPanel"}>
+                {navButtons}
+            </div>
+
+            <div className={"buttons_selectDecor"} style={{bottom:`${bottomButtonsPanel}`}}>
                 {(state.selectChanges === "facade") && <div className={"buttonsPanel"} >
-                    {decors.map(item => {
-                        return <button key={item.id}
-                                       type='button'
-                                       className={"button_selectColor"}
-                                       style={{backgroundImage:`url(${item.color})`,padding:`${buttonDecorSizePadding}`}}
-                                       onClick={()=>{handleFieldChange('selectColorFacade',`${item.color}`)}}
-                        >
-                        </button>})}
+                    {decors.map(item => (
+                        <button key={item.id}
+                                type='button'
+                                className={`button_selectColor ${item.color === activeDecorValue ? 'active' : ''}`}
+                                style={{backgroundImage:`url(${item.color})`,padding:`${buttonDecorSizePadding}`}}
+                                onClick={()=>{handleFieldChange('selectColorFacade',`${item.color}`)}}
+                        />
+                    ))}
                 </div>}
                 {(state.selectChanges === "wallPanel") && <div className={"buttonsPanel"} >
-                    {decors.map(item => {
-                        return <button key={item.id}
-                                       type='button'
-                                       className={"button_selectColor"}
-                                       style={{backgroundImage:`url(${item.color})`,padding:`${buttonDecorSizePadding}`}}
-                                       onClick={()=>{handleFieldChange('selectColorWallPanel',`${item.color}`)}}
-                        >
-                        </button>})}
+                    {decors.map(item => (
+                        <button key={item.id}
+                                type='button'
+                                className={`button_selectColor ${item.color === activeDecorValue ? 'active' : ''}`}
+                                style={{backgroundImage:`url(${item.color})`,padding:`${buttonDecorSizePadding}`}}
+                                onClick={()=>{handleFieldChange('selectColorWallPanel',`${item.color}`)}}
+                        />
+                    ))}
                 </div>}
                 {(state.selectChanges === "pattern") && <div className={"buttonsPanel"} >
-                    {patterns.map(item => {
-                        return <button key={item.id}
-                                       type='button'
-                                       className={"button_selectColor"}
-                                       style={{backgroundImage:`url(${item.pattern})`,padding:'25px'}}
-                                       onClick={()=>{handleFieldChange('selectPatternWallPanel',`${item.pattern}`)}}
-                        >
-                        </button>})}
+                    {patterns.map(item => (
+                        <button key={item.id}
+                                type='button'
+                                className={`button_selectColor ${item.pattern === activeDecorValue ? 'active' : ''}`}
+                                style={{backgroundImage:`url(${item.pattern})`,backgroundSize:`${patternBackgroundSize}`,padding:`${patternPadding}`}}
+                                onClick={()=>{handleFieldChange('selectPatternWallPanel',`${item.pattern}`)}}
+                        />
+                    ))}
                 </div>}
                 {(state.selectChanges === "counterTop") && <div className={"buttonsPanel"} >
-                    {decors.map(item => {
-                        return <button key={item.id}
-                                       type='button'
-                                       className={"button_selectColor"}
-                                       style={{backgroundImage:`url(${item.color})`,padding:`${buttonDecorSizePadding}`}}
-                                       onClick={()=>{handleFieldChange('selectColorCounterTop',`${item.color}`)}}
-                        >
-                        </button>})}
+                    {decors.map(item => (
+                        <button key={item.id}
+                                type='button'
+                                className={`button_selectColor ${item.color === activeDecorValue ? 'active' : ''}`}
+                                style={{backgroundImage:`url(${item.color})`,padding:`${buttonDecorSizePadding}`}}
+                                onClick={()=>{handleFieldChange('selectColorCounterTop',`${item.color}`)}}
+                        />
+                    ))}
                 </div>}
                 {(state.selectChanges === "topFacade") && <div className={"buttonsPanel"} >
-                    {decors.map(item => {
-                        return <button key={item.id}
-                                       type='button'
-                                       className={"button_selectColor"}
-                                       style={{backgroundImage:`url(${item.color})`,padding:`${buttonDecorSizePadding}`}}
-                                       onClick={()=>{handleFieldChange('selectColorTopFacade',`${item.color}`)}}
-                        >
-                        </button>})}
+                    {decors.map(item => (
+                        <button key={item.id}
+                                type='button'
+                                className={`button_selectColor ${item.color === activeDecorValue ? 'active' : ''}`}
+                                style={{backgroundImage:`url(${item.color})`,padding:`${buttonDecorSizePadding}`}}
+                                onClick={()=>{handleFieldChange('selectColorTopFacade',`${item.color}`)}}
+                        />
+                    ))}
                 </div>}
                 {(state.selectChanges === "light") && <div className={"buttonsPanel"} >
                     <button type='button' className="button_selectColor"
