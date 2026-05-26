@@ -432,7 +432,7 @@
     z-index: 0;
     //border: 1px solid red;
     // Landscape mobile: fixed sticky panel.
-    @media (max-width: 790px) and (orientation: landscape) {
+    @media (max-width: 968px) and (orientation: landscape) {
       position: fixed;
       bottom: 0 !important;
       height: auto;
