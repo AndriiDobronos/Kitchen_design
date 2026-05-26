@@ -421,14 +421,16 @@
   }
 
   .buttons_selectDecor {
+    box-sizing: border-box;
     position: absolute;
     width: 100%;
-    height: calc(50vh - 15.2vw);
+    height: auto;//calc(50vh - 15.2vw);
+    padding: 0 0 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 0;
-
+    //border: 1px solid red;
     // Landscape mobile: fixed sticky panel.
     @media (max-width: 790px) and (orientation: landscape) {
       position: fixed;
@@ -437,7 +439,7 @@
       //min-height: 80px;
       background: rgba(255, 248, 240, 0.97);
       backdrop-filter: blur(4px);
-      border-top: 1px solid rgba(100, 60, 30, 0.2);
+      //border: 1px solid red;
       padding: 10px 0 12px;
       z-index: 100;
       align-items: flex-start;
@@ -465,6 +467,7 @@
       display: flex;
       flex-wrap: wrap;
       height: 45px;
+      //border: 1px solid red;
       @media (max-width: 1267px) {
         height: 25px;
       }
@@ -475,6 +478,7 @@
         justify-content: center;
         margin: 0 auto;
         padding: 0 8px;
+        //border: 1px solid red;
       }
       // Portrait: auto height, all buttons visible at once.
       @media (orientation: portrait) and (max-width: 790px) {
